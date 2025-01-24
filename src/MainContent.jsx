@@ -2,8 +2,10 @@ import { useEffect, useState } from "react"
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
 import {FaChevronDown, FaGithub, FaLinkedin, FaBook} from 'react-icons/fa'
 import {LiaChevronDownSolid} from 'react-icons/lia'
+import ProjectCard from "./ProjectCard";
 import axios from "axios";
 import ResumeItems from "./ResumeItems";
+import portfolioData from './assets/portfolio.json';
 import resumeDoc from './assets/resume_122424.docx?url';
 import meImg from './assets/me.jpg?url';
 const MainContent = () => {
@@ -11,19 +13,49 @@ const MainContent = () => {
     const [repoData, setRepoData] = useState([]);
     const urls = {
         github: 'https://github.com/justin-care',
+        ghPages: 'https://justin-care.github.io/',
         linkedin: 'https://www.linkedin.com/in/justin-care/',
         personal: 'http://justincare.com'
     }
 
     useEffect(() => {
-        getRepoData();
-    },[])
+        const fetchRepos = async () => {
+          const response = await axios.get(reposURL);
+          const enrichedRepos = await getUpdatedRepos(response.data);
+          setRepoData(enrichedRepos);
+        };
+      
+        fetchRepos();
+      }, []);
+      
 
-    const getRepoData = async () => {
-        const response = await axios.get(reposURL);
-        setRepoData(response.data);
-        //console.log(response.data)
-    }
+    const getUpdatedRepos = async (repoData) => {
+        const enrichedRepos = await Promise.all(
+          repoData.map(async (repo) => {
+            const details = portfolioData.find((item) => item.name === repo.name);
+      
+            // Construct the potential URL for the case study
+            const testCaseStudyUrl = `https://raw.githubusercontent.com/justin-care/${repo.name}/master/docs/case-study.md`;
+            const caseStudyUrl = `https://github.com/justin-care/${repo.name}/blob/master/docs/case-study.md`;
+      
+            // Validate if the file exists
+            const isCaseStudyPresent = await fetch(testCaseStudyUrl, { method: "HEAD" })
+              .then((response) => response.ok)
+              .catch(() => false);
+      
+            // Return enriched repo data
+            return {
+              ...repo,
+              ...details,
+              caseStudyUrl: isCaseStudyPresent ? caseStudyUrl : null,
+            };
+          })
+        );
+      
+        return enrichedRepos;
+      };
+      
+
     return (
         <main className="main-content w-full flex-1 flex flex-col mt-4 gap-4">
             <section id="welcome" className="w-full mb-8"></section>
@@ -48,41 +80,15 @@ const MainContent = () => {
                 <p className="text-xl leading-10 mb-6">That being said, I'm not able to display most or any of that work, given it was all internal, for a former employer. In lieu of that, I'll be working on new projects that I can share on this site. If you'd like to view my detailed resume, click <ResumeButton /> to download the file, or keep scrolling to view it here.</p>
                 <Resume />
             </section>
-            <section id="projects" className="w-full min-h-80 flex flex-col my-4">
+            <section id="projects" className="w-full min-h-80 flex flex-col my-4 mb-14">
                 <h1 className="text-3xl font-bold mb-6 mt-8">Projects:</h1>
                 <p className="text-xl leading-10">This is a "coming soon" kind of list. I'm currently working on some personal projects, and will update here with more details when they are ready.</p>
                 <p className="text-xl leading-10 mb-6 xsm:mb-10">For now, here are some of the projects I have on GitHub right now (mainly just this site right now 👀 😮‍💨):</p>
-                <div className="flex flex-row flex-wrap xsm:justify-center md:justify-start align-center gap-4">
-                    {
-                        repoData.map((repo, index) => {
-                            return (
-                                <div key={index} className="xsm:w-60 w-80 h-60 flex flex-col justify-between rounded-md border-2 border-slate-400 dark:border-slate-600 bg-slate-200 dark:bg-slate-800 transition duration-150 hover:shadow-lg focus:shadow-lg ">
-                                    <div className="">
-                                        <h3 className="text-2xl font-bold px-4 p-2 text-center">{repo.name}</h3>
-                                        <div className="w-full h-[2px] bg-slate-400 dark:bg-slate-600"></div>
-                                    </div>
-                                    <div className="flex-1 flex flex-row items-center justify-center">
-                                    <h2 className="w-3/4 h-3/4 p-4 text-center text-xl">{repo.description}</h2>
-                                    </div>
-                                    <div>
-                                        <div className="w-full h-[2px] bg-slate-400 dark:bg-slate-600"></div>
-                                        <div className="flex flex-row justify-between xsm:px-0 px-4">
-                                            <button className="p-4" tabIndex={-1}>
-                                                <a href={repo.html_url} target="_blank">View Repo</a>
-                                            </button>
-                                            <div className="w-[2px] min-h-full bg-slate-400 dark:bg-slate-600"></div>
-                                            <button className="p-4" tabIndex={-1}>
-                                                {
-                                                    repo.name === "justincare.io" ? <a href="#header">View Project</a> : <a>View Project</a>
-                                                }
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
+                <div className="projects-container flex flex-row flex-wrap xsm:justify-center md:justify-start align-center gap-8">
+                    {repoData.map((repo, index) => (
+                        <ProjectCard key={index} name={repo.name} description={repo.description} liveUrl={repo.liveUrl} tags={repo.tags || []} githubUrl={repo.html_url} caseStudyUrl={repo.caseStudyUrl}/>
+                    ))}
+                    </div>
             </section>
         </main>
     )

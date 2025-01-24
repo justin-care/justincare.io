@@ -1,0 +1,15 @@
+[
+    {
+        "name": "justincare.io",
+        "liveUrl": "https://justincare.io/",
+        "tags": ["React", "TailwindCSS", "Vite", "Frontend"]
+    },{
+        "name": "conway",
+        "liveUrl": "https://justin-care.github.io/conway/",
+        "tags": ["React", "TailwindCSS", "Vite", "Frontend"]
+    },{
+        "name": "basic-crud-app",
+        "liveUrl": "https://basic-crud-app-three.vercel.app/",
+        "tags": ["React", "TailwindCSS", "Vite", "Vercel", "Fly.io", "Flowbite", "REST API", "Fullstack", "Go"]
+    }
+]
