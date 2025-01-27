@@ -12,7 +12,7 @@ const ResumeItems = [{
         "Adhere to design and development standards, ensuring a consistent and visually appealing user experience across various devices and browsers.",
         "Ensure interactive content follows WCAG accessibility guidelines, including color contrast, keyboard navigation, and screen reader accessibility.",
         "Collaborate with cross-functional teams, including design, development, and project management, to deliver high-quality interactive content that aligns with project objectives.",
-        "Oversee development of interactive content created by partered vendors to ensure compliance with accessibility standards, best practices, and corporate technical requirements.",
+        "Oversee development of interactive content created by partnered vendors to ensure compliance with accessibility standards, best practices, and corporate technical requirements.",
     ],
     skills:[
         "Javascript",

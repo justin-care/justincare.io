@@ -12,11 +12,11 @@ const ProjectCard = ({ name, description, liveUrl, tags, githubUrl, caseStudyUrl
     <div role="button" tabIndex={0} aria-expanded={isExpanded} className={`relative ${isExpanded ? "fixed inset-0 z-50 flex items-center justify-center bg-white max-w-80" : "w-80 h-60"} rounded-lg shadow-lg border border-gray-300 dark:border-gray-600 p-4 bg-gray-100 dark:bg-gray-800 transition-all duration-300 ease-in-out transform ${isExpanded ? "scale-100" : "hover:scale-105"}`}onClick={toggleExpand} onKeyDown={(e) => {if (e.key === "Enter" || e.key === " ") {toggleExpand();}}}>
       {isExpanded ? (
         <div className="flex flex-col items-center justify-center gap-6 p-4">
-          <h2 className="text-2xl font-bold">{name}</h2>
+          <h2 className="text-3xl font-bold font-teko tracking-widest">{name}</h2>
           <p className="text-lg text-center">{description}</p>
           <div className="flex flex-wrap gap-2 justify-center">
             {tags.map((tag, index) => (
-              <span key={index} className="px-2 py-1 text-sm bg-blue-200 text-blue-800 rounded-full user-select-none">
+              <span key={index} className="px-3 py-1.5 font-bold text-sm bg-blue-200 text-blue-800 rounded-full user-select-none">
                 {tag}
               </span>
             ))}
@@ -34,10 +34,10 @@ const ProjectCard = ({ name, description, liveUrl, tags, githubUrl, caseStudyUrl
         </div>
       ) : (
         <div className="flex flex-col justify-between h-full cursor-pointer">
-          <h3 className="text-2xl font-bold text-center">{name}</h3>
+          <h3 className="text-3xl font-bold text-center font-teko tracking-widest">{name}</h3>
           <div className="flex flex-wrap gap-2 justify-center">
             {tags.map((tag, index) => (
-              <span key={index} className="px-2 py-1 text-sm bg-blue-200 text-blue-800 rounded-full user-select-none">
+              <span key={index} className="px-3 py-1.5 font-bold text-sm bg-blue-200 text-blue-800 rounded-full user-select-none">
                 {tag}
               </span>
             ))}

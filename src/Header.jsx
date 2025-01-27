@@ -23,8 +23,8 @@ const Header = ({darkMode ,setDarkMode}) => {
         document.documentElement.classList.toggle('dark');
     }
     return (
-        <nav id="header" className="header w-full h-36  flex flex-row py-4 items-center justify-between mb-4">
-            <h2 className="text-4xl font-bold">justincare.io</h2>
+        <nav id="header" className="header w-full h-36  flex flex-row py-4 items-center justify-between mb-4 font-sans">
+            <h2 className="text-6xl font-bold tracking-wider font-teko">justincare.io</h2>
             <div className="flex flex-row items-center gap-4 justify-between">
                 {isMobile ? <MobileMenu enabled={enabled} toggleDarkMode={toggleDarkMode} /> : <FullMenu enabled={enabled} toggleDarkMode={toggleDarkMode} />}
             </div>

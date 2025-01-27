@@ -8,10 +8,11 @@ export default {
   theme: {
     extend: {
       screens: {
-        'xsm':'400px'
+        'xsm':'325px'
       },
-      listStyleImage: {
-        'checkmark': 'url("/src/assets/square-check-solid.svg")',
+      fontFamily: {
+        'teko': ['Teko', 'sans-serif'],
+        'lato': ['Lato', 'sans-serif']
       }
     },
   },
