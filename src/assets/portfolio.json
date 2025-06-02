@@ -11,5 +11,9 @@
         "name": "basic-crud-app",
         "liveUrl": "https://basic-crud-app-three.vercel.app/",
         "tags": ["React", "TailwindCSS", "Vite", "Vercel", "Fly.io", "Flowbite", "REST API", "Fullstack", "Go"]
+    },{
+        "name": "moxvault-basic",
+        "liveUrl": "https://justin-care.github.io/moxvault-basic/",
+        "tags": ["React", "TailwindCSS", "Vite", "Frontend", "MTG", "MVP", "Prototype"]
     }
 ]

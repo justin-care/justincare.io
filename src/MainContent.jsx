@@ -9,7 +9,7 @@ import portfolioData from './assets/portfolio.json';
 import resumeDoc from './assets/resume.docx?url';
 import meImg from './assets/me.jpg?url';
 const MainContent = () => {
-    const reposURL = 'https://api.github.com/users/justin-care/repos';
+    const reposURL = 'https://api.github.com/users/justin-care/repos?sort=updated';
     const [repoData, setRepoData] = useState([]);
     const urls = {
         github: 'https://github.com/justin-care',
